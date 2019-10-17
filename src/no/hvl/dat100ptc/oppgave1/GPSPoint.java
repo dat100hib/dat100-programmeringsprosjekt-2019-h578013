@@ -4,74 +4,69 @@ import no.hvl.dat100ptc.TODO;
 
 public class GPSPoint {
 
-	// TODO - objektvariable
+	private int time = 1;								//laget objektvariabler
+	private double longitude = 3.0;
+	private double latitude = 2.0;
+	private double elevation = 5.0;
 		
 	public GPSPoint(int time, double latitude, double longitude, double elevation) {
-
-		// TODO - konstruktur
-
-		throw new UnsupportedOperationException(TODO.construtor("GPSPoint"));
+		super();										//Gir verdi til objektvariablene
+		this.time = time;
+		this.longitude = longitude;
+		this.latitude = latitude;
+		this.elevation = elevation;
+		
 
 	}
 
-	// TODO - get/set metoder
 	public int getTime() {
-		
-		throw new UnsupportedOperationException(TODO.method());
+		return time;
 		
 	}
 
 	public void setTime(int time) {
-				
-		throw new UnsupportedOperationException(TODO.method());
+		this.time = time;
 
 	}
 
 	public double getLatitude() {
-		
-		throw new UnsupportedOperationException(TODO.method());
+		return latitude;
 		
 	}
 
 	public void setLatitude(double latitude) {
-		
-		throw new UnsupportedOperationException(TODO.method());
+		this.latitude = latitude;
 		
 	}
 
 	public double getLongitude() {
-		
-		throw new UnsupportedOperationException(TODO.method());
+		return longitude;
 		
 	}
 
 	public void setLongitude(double longitude) {
-		
-		throw new UnsupportedOperationException(TODO.method());
+		this.longitude = longitude;
 		
 	}
 
 	public double getElevation() {
-		
-		throw new UnsupportedOperationException(TODO.method());
+		return elevation;
 		
 	}
 
 	public void setElevation(double elevation) {
-		
-		throw new UnsupportedOperationException(TODO.method());
+		this.elevation = elevation;
 		
 	}
 	
 	public String toString() {
 		
-		String str;
-		
-		// TODO - start
-
-		throw new UnsupportedOperationException(TODO.method());
-
-		// TODO - slutt
+		String t = String.valueOf(time);						//Gjør om objektvariablene til String form
+		String l1 = String.valueOf(latitude);
+		String l2 = String.valueOf(longitude);
+		String e = String.valueOf(elevation);
+		String str = (t + " (" + l1 + "," + l2 + ") " + e + "\n");
+		return str;
 		
 	}
 }

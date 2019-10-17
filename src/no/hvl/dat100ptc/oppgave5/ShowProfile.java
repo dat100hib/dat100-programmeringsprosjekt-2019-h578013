@@ -44,13 +44,24 @@ public class ShowProfile extends EasyGraphics {
 
 	public void showHeightProfile(int ybase) {
 
-		// ybase indicates the position on the y-axis where the columns should start
+		double maxEle = 0;
+		double minEle = 1000;
+		for (int i = 0; i<gpspoints.length; i++) {						//Lager en for-lokke som stiger mot gpspoints.length
+			maxEle = Math.max(maxEle, gpspoints[i].getElevation());		//verdien. Regner saa ut max og min elevation
+			minEle = Math.min(minEle, gpspoints[i].getElevation());
+		}
+		double eleStep = MAXBARHEIGHT/(maxEle-minEle);					
 		
-		// TODO - START
-
-		throw new UnsupportedOperationException(TODO.method());
-	
-		// TODO - SLUTT
+		setColor(0, 0, 255);
+		int y, x=MARGIN;												// 
+		int mellomrom = 2;												// Gir mellomromm mellom hver soyle
+		int bredde = 1;													// Gir bredde mellom soyelene
+		for (int i = 0; i<gpspoints.length; i++) {						// For-lokke som defeinerer hoyden til soylen.
+			y = (int) ((gpspoints[i].getElevation()-minEle)*eleStep);
+			System.out.println(y);
+			fillRectangle(x,ybase-y, bredde, y);
+			x += mellomrom;												// Legger x til i int mellomrom
+		}
 	}
 
 }

@@ -36,7 +36,7 @@ public class ShowRoute extends EasyGraphics {
 
 		showRouteMap(MARGIN + MAPYSIZE);
 
-		playRoute(MARGIN + MAPYSIZE);
+		//playRoute(MARGIN + MAPYSIZE);
 		
 		showStatistics();
 	}
@@ -55,23 +55,50 @@ public class ShowRoute extends EasyGraphics {
 	// antall y-pixels per breddegrad
 	public double ystep() {
 	
-		double ystep;
+		double maxlat = GPSUtils.findMax(GPSUtils.getLatitudes(gpspoints));
+		double minlat = GPSUtils.findMin(GPSUtils.getLatitudes(gpspoints));
+		double ystep = MAPYSIZE / (Math.abs(maxlat - minlat)); 
+		return ystep;
 		
-		// TODO - START
 		
-		throw new UnsupportedOperationException(TODO.method());
-
-		// TODO - SLUTT
 		
 	}
 
 	public void showRouteMap(int ybase) {
 
-		// TODO - START
+		int diameter = 3;
+		int x,y,xprev=0,yprev=0;
 		
-		throw new UnsupportedOperationException(TODO.method());
 		
-		// TODO - SLUTT
+		double minlat = GPSUtils.findMin(GPSUtils.getLatitudes(gpspoints));
+		double minlon = GPSUtils.findMin(GPSUtils.getLongitudes(gpspoints));
+		
+		
+		for (int i = 0; i<gpspoints.length; i++) {
+			
+			x = MARGIN+(int) ((gpspoints[i].getLongitude()-minlon) * xstep());
+			y = (int) (ybase-(gpspoints[i].getLatitude()-minlat) * ystep());
+			
+			
+			//skriver man ut en grønn sirkel og en rød når man går nedover.
+			if (i==0) { 
+				setColor(0,255,0);
+			} else if (gpspoints[i].getElevation()>=gpspoints[i-1].getElevation() && i>0 && i!=gpspoints.length) {
+				setColor(0,255,0);
+			} else if (gpspoints[i].getElevation()<gpspoints[i-1].getElevation() && i>0 && i!=gpspoints.length){
+				setColor(255,0,0);
+			}
+			
+			if (i==0) {
+				xprev=x;
+				yprev=y;
+			}
+			
+			drawLine(x, y, xprev, yprev);
+			xprev = x;
+			yprev = y;
+			fillCircle(x,y, diameter);
+		}
 	}
 
 	public void showStatistics() {
@@ -81,20 +108,18 @@ public class ShowRoute extends EasyGraphics {
 		setColor(0,0,0);
 		setFont("Courier",12);
 		
-		// TODO - START
-		
-		throw new UnsupportedOperationException(TODO.method());
-		
-		// TODO - SLUTT;
+		drawString("=========================================",TEXTDISTANCE,20 );
+		drawString("Total Time"+"\t\t\t\t\t\t\t"+":"+ GPSUtils.formatTime(gpscomputer.totalTime()),TEXTDISTANCE,30 );
+		drawString("Total distance"+"\t\t\t"+":"+"\t\t"+String.format("%.2f", gpscomputer.totalDistance()/1000)+" km",TEXTDISTANCE,40 );
+		drawString("Total elevation"+"\t\t"+":"+"\t\t"+String.format("%.2f", gpscomputer.totalElevation())+" m",TEXTDISTANCE,50 );
+		drawString("Max speed"+"\t\t\t\t\t\t\t\t"+":"+"\t\t"+String.format("%.2f", gpscomputer.maxSpeed())+" km/t",TEXTDISTANCE,60 );
+		drawString("Average speed"+"\t\t\t\t"+":"+"\t\t"+String.format("%.2f", gpscomputer.averageSpeed())+" km/t",TEXTDISTANCE,70 );
+		drawString("Energy"+"\t\t\t\t\t\t\t\t\t\t\t"+":"+"\t\t"+String.format("%.2f", gpscomputer.totalKcal(80))+" kcal",TEXTDISTANCE,80 );
+		drawString("=========================================",TEXTDISTANCE,90 );
 	}
 
 	public void playRoute(int ybase) {
 
-		// TODO - START
-		
-		throw new UnsupportedOperationException(TODO.method());
-		
-		// TODO - SLUTT
-	}
 
+	}
 }

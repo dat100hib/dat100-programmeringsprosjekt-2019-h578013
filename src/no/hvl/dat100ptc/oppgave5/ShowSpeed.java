@@ -46,10 +46,35 @@ public class ShowSpeed extends EasyGraphics {
 		System.out.println("Angi tidsskalering i tegnevinduet ...");
 		int timescaling = Integer.parseInt(getText("Tidsskalering"));
 				
-		// TODO - START
+		double [] speed = gpscomputer.speeds();
+		double maxSpeed = 0;
+		double minSpeed = 0;
+		for (int i = 0; i<speed.length; i++) {
+			maxSpeed = Math.max(maxSpeed, speed[i]);
+			minSpeed = Math.min(minSpeed, speed[i]);
+		}
+		double speedStep = BARHEIGHT/(maxSpeed-minSpeed);
+			
+		int x = MARGIN;
+		int xAv = MARGIN;
+		int bredde = 1;
+		int breddeAvg = N;
+		int hoydeAvg = 2;
+		int mellomrom = 2;
+		int y = 0;
+		int averageSpeed = 0;
+		setColor(0, 0, 255);
 		
-		throw new UnsupportedOperationException(TODO.method());
+		for (int i = 0; i<N; i++) {
+			y = (int) ((speed[i]-minSpeed)*speedStep);
+			fillRectangle(x,ybase-y, bredde, y);
+			x += mellomrom;
+			averageSpeed+=y;
+		}
+		breddeAvg = x-xAv;
+		averageSpeed = (int)((averageSpeed/N)+0.5);
+		setColor(0,100,100);
+		fillRectangle(xAv,ybase-averageSpeed, breddeAvg , hoydeAvg);
 	
-		// TODO - SLUTT
 	}
 }

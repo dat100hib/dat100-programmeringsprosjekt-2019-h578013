@@ -10,11 +10,10 @@ public class GPSData {
 
 	public GPSData(int antall) {
 
-		// TODO - START
-		
-		throw new UnsupportedOperationException(TODO.construtor("GPSData"));
 
-		// TODO - SLUTT
+		gpspoints = new GPSPoint[antall];		//Oprettet en tabell av GPS-punkt med størrelsen (antall)
+		
+		
 	}
 
 	public GPSPoint[] getGPSPoints() {
@@ -25,36 +24,43 @@ public class GPSData {
 
 		boolean inserted = false;
 
-		// TODO - START
-		
-		throw new UnsupportedOperationException(TODO.method());
 
-		// TODO - SLUTT
+		if (gpspoints.length != antall) {			// Sjekker at tabellen ikke er lik antall
+			gpspoints[antall] = gpspoint;			// Putter inn gpspoint i tabellen
+			antall ++;								// Gjør at antallet stiger
+			inserted = true;						// Bytter boolean variabelen til true
+		
+		} 			
+		return inserted;							
+				
 	}
 
+	
 	public boolean insert(String time, String latitude, String longitude, String elevation) {
 
 		GPSPoint gpspoint;
+		boolean insert = false;
 
-		// TODO - START
+		int time1 = GPSDataConverter.toSeconds(time);		// Henter time ifra GPSDataConverter
+		double latitude1 = Double.parseDouble(latitude);	// Konverterer String til Double
+		double longitude1 = Double.parseDouble(longitude);	// Konverterer String til Double	
+		double elevation1 = Double.parseDouble(elevation);	// Konverterer String til Double
 		
-		throw new UnsupportedOperationException(TODO.method());
-
-		// TODO - SLUTT
-		
-	}
+		gpspoint = new GPSPoint (time1, latitude1, longitude1, elevation1);
+		insert = insertGPS(gpspoint);						// Henter insertGPS metoden 
+		return insert;										// Returnerer insert
+}
+	
+	
 
 	public void print() {
 
-		System.out.println("====== Konvertert GPS Data - START ======");
-
-		// TODO - START
-
-		throw new UnsupportedOperationException(TODO.method());
-
-		// TODO - SLUTT
 		
-		// System.out.println("====== Konvertert GPS Data - SLUTT ======");
+		System.out.println("====== Konvertert GPS Data - START ======");
+		for (int i = 0; i<antall; i++) {									//En for-lokke 
+			System.out.println(gpspoints[i].toString());					//Printer ut listen til gpspoints med lengden i i stringform
+		}
+		System.out.println("====== Konvertert GPS Data - SLUTT ======");
 
 	}
 }
